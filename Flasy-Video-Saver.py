@@ -57,7 +57,7 @@ def save_file(fd):
 	i=0
 	filename=strftime("%Y-%m-%d_%H.%M.%S", localtime())
 	destfile="%s/%s.flv" % (dest_dir, filename)
-	while (os.path.exists(destfile)):
+	while os.path.exists(destfile):
 		i+=1
 		destfile="%s/%s-%d.flv" % (dest_dir, filename, i)
 	try:
