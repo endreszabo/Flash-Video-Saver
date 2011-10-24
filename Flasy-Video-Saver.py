@@ -27,7 +27,7 @@ def find_fds(pid):
 	basedir="/proc/%s/fd" % pid
 	for i in os.listdir(basedir):
 		rp=os.path.realpath(basedir+'/'+i)
-		if rp.find('tmp/FlashX')>0:
+		if 'tmp/FlashX' in rp:
 			print "found %s" % i
 			stat=os.stat(basedir+'/'+i)
 			mode=stat.st_mode
