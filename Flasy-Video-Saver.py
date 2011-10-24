@@ -12,17 +12,14 @@ file_age=30                              #files this many seconds untouched will
 saved_items={}
 
 def find_container():
-	processes=[]
-	for i in os.listdir('/proc'):
-		exe="/proc/%s/exe" % i
-		try:
-			a=os.path.realpath(exe)
-			for process in hosting_processes:
-				if a.endswith(process):
-					processes.append(i)
-		except:
-			continue
-	return processes
+	return filter(is_container, os.listdir('/proc'))
+
+def is_container(pid):
+	try:
+		exe=os.path.realpath("/proc/%s/exe" % pid)
+		return any(exe.endswith(process) for process in hosting_processes)
+	except:
+		return False
 
 def find_fds(pid):
 	writing=[]
